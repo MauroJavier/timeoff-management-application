@@ -19,6 +19,28 @@ stages:
           inputs:
             command: 'install'
 
+  - stage: ValidateInfra
+    displayName: Validate Infra
+    jobs:
+    - deployment: ValidateInfraJob
+      pool:
+        vmImage: 'ubuntu-latest'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - checkout: self
+              - task: AzureResourceGroupDeployment@2
+                displayName: 'Azure Deployment:Create Or Update Resource Group action on unpleo-rg'
+                inputs:
+                  azureSubscription: tma-sp-001
+                  resourceGroupName: 'tma-rg-001'
+                  location: 'South Central US'
+                  csmFile: 'infra/template.json'
+                  csmParametersFile: 'infra/parameters.json'
+                  overrideParameters: -adminPassword $(adminPassword)
+                  deploymentMode: 'Validation'
+
   - stage: BuildInfra
     displayName: Build Infra
     jobs:
@@ -40,4 +62,3 @@ stages:
                   csmFile: 'infra/template.json'
                   csmParametersFile: 'infra/parameters.json'
                   overrideParameters: -adminPassword $(adminPassword)
-                  deploymentMode: 'Validation'
