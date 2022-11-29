@@ -1,6 +1,9 @@
 trigger:
 - master
 
+variables:
+  - group: 'TMA-Secrets'
+
 stages:
   - stage: BuildApp
     displayName: Build App
@@ -36,4 +39,5 @@ stages:
                   location: 'South Central US'
                   csmFile: 'infra/template.json'
                   csmParametersFile: 'infra/parameters.json'
+                  overrideParameters: -adminPassword $(adminPassword)
                   deploymentMode: 'Validation'
