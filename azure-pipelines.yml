@@ -13,10 +13,10 @@ stages:
       steps:
         - task: Npm@1
           inputs:
-          command: 'install'
+            command: 'install'
         - task: Npm@1
           inputs:
-          command: 'start'
+            command: 'start'
 
   - stage: BuildInfra
     displayName: Destroy stage
