@@ -15,9 +15,7 @@ stages:
         - task: Npm@1
           inputs:
             command: 'install'
-        - task: Npm@1
-          inputs:
-            command: 'start'
+        - script: npm start
 
   - stage: BuildInfra
     displayName: Destroy stage
