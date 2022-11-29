@@ -3,9 +3,9 @@ trigger:
 
 stages:
   - stage: BuildApp
-    displayName: Build stage
+    displayName: Build App
     jobs:
-    - job: BuildJob
+    - job: BuildAppJob
       pool:
         vmImage: 'ubuntu-latest'
       steps:
@@ -17,16 +17,23 @@ stages:
             command: 'install'
 
   - stage: BuildInfra
-    displayName: Destroy stage
+    displayName: Build Infra
     jobs:
-    - deployment: DestroyJob
+    - deployment: BuildInfraJob
       pool:
-        vmImage: 'ubuntu-20.04'
+        vmImage: 'ubuntu-latest'
       environment: 'development'
       strategy:
         runOnce:
           deploy:
             steps:
               - checkout: self
-
-
+              - task: AzureResourceGroupDeployment@2
+                displayName: 'Azure Deployment:Create Or Update Resource Group action on unpleo-rg'
+                inputs:
+                  azureSubscription: tma-sp-001
+                  resourceGroupName: 'tma-rg-001'
+                  location: 'South Central US'
+                  csmFile: 'infra/template.json'
+                  csmParametersFile: 'infra/parameters.json'
+                  deploymentMode: 'Validation'
