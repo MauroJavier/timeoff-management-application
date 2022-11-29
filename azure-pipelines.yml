@@ -1,8 +1,6 @@
 trigger:
 - master
 
-steps:
-
 stages:
   - stage: BuildApp
     displayName: Build stage
