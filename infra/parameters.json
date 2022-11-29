@@ -2,26 +2,91 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "name": {
-            "value": "tma-asp-001"
-        },
         "location": {
-            "value": "Central US"
+            "value": "southcentralus"
         },
-        "numberOfWorkers": {
-            "value": "1"
+        "networkInterfaceName": {
+            "value": "tma-vm-00111"
         },
-        "sku": {
-            "value": "Basic"
+        "networkSecurityGroupName": {
+            "value": "tma-vm-001-nsg"
         },
-        "skuCode": {
-            "value": "B1"
+        "networkSecurityGroupRules": {
+            "value": [
+                {
+                    "name": "SSH",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "22"
+                    }
+                }
+            ]
         },
-        "workerSize": {
-            "value": "0"
+        "subnetName": {
+            "value": "default"
         },
-        "workerSizeId": {
-            "value": "0"
+        "virtualNetworkName": {
+            "value": "tma-rg-001-vnet"
+        },
+        "addressPrefixes": {
+            "value": [
+                "10.0.0.0/16"
+            ]
+        },
+        "subnets": {
+            "value": [
+                {
+                    "name": "default",
+                    "properties": {
+                        "addressPrefix": "10.0.0.0/24"
+                    }
+                }
+            ]
+        },
+        "publicIpAddressName": {
+            "value": "tma-vm-001-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Static"
+        },
+        "publicIpAddressSku": {
+            "value": "Standard"
+        },
+        "pipDeleteOption": {
+            "value": "Detach"
+        },
+        "virtualMachineName": {
+            "value": "tma-vm-001"
+        },
+        "virtualMachineComputerName": {
+            "value": "tma-vm-001"
+        },
+        "virtualMachineRG": {
+            "value": "tma-rg-001"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "osDiskDeleteOption": {
+            "value": "Delete"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_B1s"
+        },
+        "nicDeleteOption": {
+            "value": "Detach"
+        },
+        "adminUsername": {
+            "value": "azureuser"
+        },
+        "adminPassword": {
+            "value": null
         }
     }
 }
