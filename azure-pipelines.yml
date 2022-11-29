@@ -25,6 +25,7 @@ stages:
     - deployment: ValidateInfraJob
       pool:
         vmImage: 'ubuntu-latest'
+      environment: 'test'
       strategy:
         runOnce:
           deploy:
