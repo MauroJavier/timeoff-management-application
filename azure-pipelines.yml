@@ -9,6 +9,7 @@ stages:
       pool:
         vmImage: 'ubuntu-latest'
       steps:
+        - script: apk add --no-cache
         - task: Npm@1
           inputs:
             command: 'install'
