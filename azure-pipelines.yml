@@ -90,7 +90,6 @@ stages:
                   displayName: Azure CLI
                   inputs:
                     azureSubscription: tma-sp-001
-                    scriptType: ps
                     scriptType: pscore
                     scriptLocation: inlineScript
                     inlineScript: |
