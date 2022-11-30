@@ -90,7 +90,7 @@ stages:
                   scriptType: pscore
                   scriptLocation: inlineScript
                   inlineScript: |
-                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "apt-get install -y nodejs && apt-get install -y npm"
+                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "apt-get install -y nodejs && apt-get install -y npm && apt-get install -y sqlite3"
 
   - stage: DestroyInfra
     displayName: Destroy Infra
