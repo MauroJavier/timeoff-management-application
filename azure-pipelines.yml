@@ -64,6 +64,26 @@ stages:
                   csmParametersFile: 'infra/parameters.json'
                   overrideParameters: -adminPassword $(adminPassword)
 
+  - stage: SetupInfra
+    displayName: Setup Infra
+    jobs:
+    - deployment: SetupInfraJob
+      pool:
+        vmImage: 'ubuntu-latest'
+      environment: 'setup'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: AzureCLI@2
+                displayName: Azure CLI
+                inputs:
+                  azureSubscription: tma-sp-001
+                  scriptType: ps
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    az vm run-command invoke -g myResourceGroup -n myVm --command-id RunShellScript --scripts "apt-get update && apt-get install -y nginx"
+
   - stage: DestroyInfra
     displayName: Destroy Infra
     jobs:
