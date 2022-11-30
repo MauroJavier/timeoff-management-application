@@ -110,7 +110,15 @@ stages:
                   scriptType: pscore
                   scriptLocation: inlineScript
                   inlineScript: |
-                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "apt-get update && apt-get install -y sqlite3 && apt-get install -y npm"            
+                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "apt-get update && apt-get install -y sqlite3"            
+              - task: AzureCLI@2
+                displayName: Azure CLI
+                inputs:
+                  azureSubscription: tma-sp-001
+                  scriptType: pscore
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "sudo sapt-get install -y npm"
 
   - stage: DeployApp
     displayName: Deploy App
