@@ -42,27 +42,27 @@ stages:
                   overrideParameters: -adminPassword $(adminPassword)
                   deploymentMode: 'Validation'
 
-  - stage: BuildInfra
-    displayName: Build Infra
-    jobs:
-    - deployment: BuildInfraJob
-      pool:
-        vmImage: 'ubuntu-latest'
-      environment: 'development'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-              - checkout: self
-              - task: AzureResourceGroupDeployment@2
-                displayName: 'Azure Deployment:Create Or Update Resource Group action on unpleo-rg'
-                inputs:
-                  azureSubscription: tma-sp-001
-                  resourceGroupName: 'tma-rg-001'
-                  location: 'South Central US'
-                  csmFile: 'infra/template.json'
-                  csmParametersFile: 'infra/parameters.json'
-                  overrideParameters: -adminPassword $(adminPassword)
+  # - stage: BuildInfra
+  #   displayName: Build Infra
+  #   jobs:
+  #   - deployment: BuildInfraJob
+  #     pool:
+  #       vmImage: 'ubuntu-latest'
+  #     environment: 'development'
+  #     strategy:
+  #       runOnce:
+  #         deploy:
+  #           steps:
+  #             - checkout: self
+  #             - task: AzureResourceGroupDeployment@2
+  #               displayName: 'Azure Deployment:Create Or Update Resource Group action on unpleo-rg'
+  #               inputs:
+  #                 azureSubscription: tma-sp-001
+  #                 resourceGroupName: 'tma-rg-001'
+  #                 location: 'South Central US'
+  #                 csmFile: 'infra/template.json'
+  #                 csmParametersFile: 'infra/parameters.json'
+  #                 overrideParameters: -adminPassword $(adminPassword)
 
   - stage: DestroyInfra
     displayName: Destroy Infra
