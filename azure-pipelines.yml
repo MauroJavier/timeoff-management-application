@@ -123,17 +123,13 @@ stages:
         runOnce:
           deploy:
             steps:
-              - task: AzureFileCopy@5
+              - task: CopyFilesOverSSH@0
                 inputs:
-                  SourcePath: '$(Pipeline.Workspace)/tmaArtifacts'
-                  azureSubscription: 'tma-sp-001'
-                  Destination: 'AzureVMs'
-                  storage: 'tmavmstorageat001'
-                  resourceGroup: 'tma-rg-001'
-                  MachineNames: 'tma-vm-001'
-                  vmsAdminUserName: 'azureuser'
-                  vmsAdminPassword: '$(adminPassword)'
-                  TargetPath: '/home/azureuser/tma'
+                  sshEndpoint: 'tmasshsc'
+                  sourceFolder: '$(Pipeline.Workspace)/tmaArtifacts'
+                  contents: '**'
+                  targetFolder: '/home/azureuser/tma'
+                  readyTimeout: '20000'
               - task: AzureCLI@2
                 displayName: Azure CLI
                 inputs:
