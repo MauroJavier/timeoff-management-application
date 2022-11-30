@@ -117,7 +117,7 @@ stages:
     jobs:
     - deployment: DeployAppJob
       pool:
-        vmImage: 'windows-latest'
+        vmImage: 'ubuntu-latest'
       environment: 'devapp'
       strategy:
         runOnce:
