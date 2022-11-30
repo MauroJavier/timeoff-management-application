@@ -52,6 +52,15 @@ stages:
                   csmParametersFile: 'infra/parameters.json'
                   overrideParameters: -adminPassword $(adminPassword)
                   deploymentMode: 'Validation'
+              - task: AzureResourceGroupDeployment@2
+                displayName: 'Azure Deployment:Create Or Update Resource Group action on unpleo-rg'
+                inputs:
+                  azureSubscription: tma-sp-001
+                  resourceGroupName: 'tma-rg-001'
+                  location: 'South Central US'
+                  csmFile: 'infra/storage.json'
+                  csmParametersFile: 'infra/storage-parameters.json'
+                  deploymentMode: 'Validation'
 
   - stage: BuildInfra
     displayName: Build Infra
@@ -74,6 +83,14 @@ stages:
                   csmFile: 'infra/template.json'
                   csmParametersFile: 'infra/parameters.json'
                   overrideParameters: -adminPassword $(adminPassword)
+              - task: AzureResourceGroupDeployment@2
+                displayName: 'Azure Deployment:Create Or Update Resource Group action on unpleo-rg'
+                inputs:
+                  azureSubscription: tma-sp-001
+                  resourceGroupName: 'tma-rg-001'
+                  location: 'South Central US'
+                  csmFile: 'infra/storage.json'
+                  csmParametersFile: 'infra/storage-parameters.json'
 
   - stage: SetupInfra
     displayName: Setup Infra
