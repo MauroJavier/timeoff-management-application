@@ -76,7 +76,7 @@
         {
             "name": "[parameters('networkInterfaceName')]",
             "type": "Microsoft.Network/networkInterfaces",
-            "apiVersion": "2021-03-01",
+            "apiVersion": "2021-08-01",
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
@@ -160,10 +160,10 @@
                         "deleteOption": "[parameters('osDiskDeleteOption')]"
                     },
                     "imageReference": {
-                        "publisher": "canonical",
-                        "offer": "0001-com-ubuntu-server-focal",
-                        "sku": "20_04-lts-gen2",
-                        "version": "latest"
+                        "publisher": "jetware-srl",
+                        "offer": "nodejs_nginx",
+                        "sku": "nodejs6_nginx-ubuntu-1604",
+                        "version": "1.0.170717"
                     }
                 },
                 "networkProfile": {
@@ -191,6 +191,11 @@
                         "enabled": true
                     }
                 }
+            },
+            "plan": {
+                "name": "nodejs6_nginx-ubuntu-1604",
+                "publisher": "jetware-srl",
+                "product": "nodejs_nginx"
             }
         }
     ],

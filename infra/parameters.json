@@ -6,7 +6,7 @@
             "value": "southcentralus"
         },
         "networkInterfaceName": {
-            "value": "tma-vm-00111"
+            "value": "tma-vm-001685"
         },
         "networkSecurityGroupName": {
             "value": "tma-vm-001-nsg"
@@ -16,10 +16,12 @@
                 {
                     "name": "HTTP",
                     "properties": {
-                        "priority": 300,
+                        "priority": 1010,
                         "protocol": "TCP",
                         "access": "Allow",
                         "direction": "Inbound",
+                        "sourceApplicationSecurityGroups": [],
+                        "destinationApplicationSecurityGroups": [],
                         "sourceAddressPrefix": "*",
                         "sourcePortRange": "*",
                         "destinationAddressPrefix": "*",
@@ -29,10 +31,12 @@
                 {
                     "name": "HTTPS",
                     "properties": {
-                        "priority": 320,
+                        "priority": 1020,
                         "protocol": "TCP",
                         "access": "Allow",
                         "direction": "Inbound",
+                        "sourceApplicationSecurityGroups": [],
+                        "destinationApplicationSecurityGroups": [],
                         "sourceAddressPrefix": "*",
                         "sourcePortRange": "*",
                         "destinationAddressPrefix": "*",
@@ -40,12 +44,29 @@
                     }
                 },
                 {
-                    "name": "SSH",
+                    "name": "HTTP_web_config",
                     "properties": {
-                        "priority": 340,
+                        "priority": 1030,
                         "protocol": "TCP",
                         "access": "Allow",
                         "direction": "Inbound",
+                        "sourceApplicationSecurityGroups": [],
+                        "destinationApplicationSecurityGroups": [],
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "1999"
+                    }
+                },
+                {
+                    "name": "default-allow-ssh",
+                    "properties": {
+                        "priority": 1040,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceApplicationSecurityGroups": [],
+                        "destinationApplicationSecurityGroups": [],
                         "sourceAddressPrefix": "*",
                         "sourcePortRange": "*",
                         "destinationAddressPrefix": "*",
