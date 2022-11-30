@@ -129,7 +129,7 @@ stages:
                   azureSubscription: 'tma-sp-001'
                   Destination: 'AzureVMs'
                   storage: 'tmavmstorageat001'
-                  resourceGroup: 'TMA-RG-001'
+                  resourceGroup: 'tma-rg-001'
                   MachineNames: 'tma-vm-001'
                   vmsAdminUserName: 'azureuser'
                   vmsAdminPassword: '$(adminPassword)'
@@ -141,7 +141,7 @@ stages:
                   scriptType: pscore
                   scriptLocation: inlineScript
                   inlineScript: |
-                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "cd /home/azureuser/tma&& npm start"            
+                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "cd /home/azureuser/tma && npm start"            
 
   # - stage: DestroyInfra
   #   displayName: Destroy Infra
