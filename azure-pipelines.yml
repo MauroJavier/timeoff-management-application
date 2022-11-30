@@ -42,27 +42,27 @@ stages:
                   overrideParameters: -adminPassword $(adminPassword)
                   deploymentMode: 'Validation'
 
-  # - stage: BuildInfra
-  #   displayName: Build Infra
-  #   jobs:
-  #   - deployment: BuildInfraJob
-  #     pool:
-  #       vmImage: 'ubuntu-latest'
-  #     environment: 'development'
-  #     strategy:
-  #       runOnce:
-  #         deploy:
-  #           steps:
-  #             - checkout: self
-  #             - task: AzureResourceGroupDeployment@2
-  #               displayName: 'Azure Deployment:Create Or Update Resource Group action on unpleo-rg'
-  #               inputs:
-  #                 azureSubscription: tma-sp-001
-  #                 resourceGroupName: 'tma-rg-001'
-  #                 location: 'South Central US'
-  #                 csmFile: 'infra/template.json'
-  #                 csmParametersFile: 'infra/parameters.json'
-  #                 overrideParameters: -adminPassword $(adminPassword)
+  - stage: BuildInfra
+    displayName: Build Infra
+    jobs:
+    - deployment: BuildInfraJob
+      pool:
+        vmImage: 'ubuntu-latest'
+      environment: 'development'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - checkout: self
+              - task: AzureResourceGroupDeployment@2
+                displayName: 'Azure Deployment:Create Or Update Resource Group action on unpleo-rg'
+                inputs:
+                  azureSubscription: tma-sp-001
+                  resourceGroupName: 'tma-rg-001'
+                  location: 'South Central US'
+                  csmFile: 'infra/template.json'
+                  csmParametersFile: 'infra/parameters.json'
+                  overrideParameters: -adminPassword $(adminPassword)
 
   - stage: SetupInfra
     displayName: Setup Infra
@@ -83,6 +83,14 @@ stages:
                   scriptLocation: inlineScript
                   inlineScript: |
                     az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "apt-get update && apt-get install -y nginx"
+              - task: AzureCLI@2
+                displayName: Azure CLI
+                inputs:
+                  azureSubscription: tma-sp-001
+                  scriptType: pscore
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "apt-get install -y nodejs && apt-get install -y npm"
 
   - stage: DestroyInfra
     displayName: Destroy Infra
