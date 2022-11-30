@@ -18,6 +18,17 @@ stages:
         - task: Npm@1
           inputs:
             command: 'install'
+        - task: CopyFiles@2
+          inputs:
+            sourceFolder: '$(Build.SourcesDirectory)'
+            contents: '**' 
+            targetFolder: $(Build.ArtifactStagingDirectory)
+          displayName: 'Copy app files'
+        - task: PublishPipelineArtifact@1
+          inputs:
+            targetPath: '$(Build.ArtifactStagingDirectory)'
+            artifactName: tmaapp
+          displayName: 'Publish app artifact'
 
   - stage: ValidateInfra
     displayName: Validate Infra
