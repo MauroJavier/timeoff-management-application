@@ -103,6 +103,7 @@ stages:
         runOnce:
           deploy:
             steps:
+            
               - task: AzureCLI@2
                 displayName: Azure CLI
                 inputs:
@@ -110,7 +111,15 @@ stages:
                   scriptType: pscore
                   scriptLocation: inlineScript
                   inlineScript: |
-                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "apt-get install -y sqlite3"            
+                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "apt-get install -y sqlite3"
+              - task: AzureCLI@2
+                displayName: Azure CLI
+                inputs:
+                  azureSubscription: tma-sp-001
+                  scriptType: pscore
+                  scriptLocation: inlineScript
+                  inlineScript: |
+                    az vm run-command invoke -g tma-rg-001 -n tma-vm-001 --command-id RunShellScript --scripts "curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash - && sudo apt-get install -y nodejs"            
               - task: AzureCLI@2
                 displayName: Azure CLI
                 inputs:
